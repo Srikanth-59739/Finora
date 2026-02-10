@@ -1,7 +1,14 @@
 import React, { createContext, useState, useEffect } from 'react';
 import expenseService from '../services/expenseService';
-import { getCurrentMonth } from '../utils/dateHelpers';
 import { STORAGE_KEYS } from '../utils/constants';
+
+// Helper function to get current month
+const getCurrentMonth = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  return `${year}-${month}`;
+};
 
 export const ExpenseContext = createContext();
 
@@ -9,16 +16,13 @@ export const ExpenseProvider = ({ children }) => {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [selectedMonth, setSelectedMonth] = useState(() => {
-    // Load from localStorage or default to current month
     return localStorage.getItem(STORAGE_KEYS.SELECTED_MONTH) || getCurrentMonth();
   });
 
-  // Save selected month to localStorage
   useEffect(() => {
     localStorage.setItem(STORAGE_KEYS.SELECTED_MONTH, selectedMonth);
   }, [selectedMonth]);
 
-  // Fetch expenses when month changes
   const fetchExpenses = async (filters = {}) => {
     setLoading(true);
     try {
@@ -35,7 +39,6 @@ export const ExpenseProvider = ({ children }) => {
     }
   };
 
-  // Fetch expenses on mount and when month changes
   useEffect(() => {
     const token = localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN);
     if (token) {
