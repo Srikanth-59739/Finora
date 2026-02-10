@@ -1,0 +1,2 @@
+Create an empty file in `Finora/server/uploads/.gitkeep` to ensure the uploads folder is tracked by git:
+```

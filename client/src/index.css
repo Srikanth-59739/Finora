@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-gray-800;
+  }
+  
+  body {
+    @apply bg-bg-primary text-text-primary font-sans antialiased;
+  }
+}
+
+@layer components {
+  /* Card Component */
+  .card {
+    @apply bg-bg-secondary rounded-card p-6 shadow-lg border border-gray-800;
+  }
+  
+  /* Button Styles */
+  .btn-primary {
+    @apply bg-accent-mint text-bg-primary px-6 py-3 rounded-lg font-semibold 
+           hover:bg-accent-teal transition-all duration-200 
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply bg-bg-tertiary text-text-primary px-6 py-3 rounded-lg font-semibold 
+           hover:bg-gray-700 transition-all duration-200 border border-gray-700
+           active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-danger {
+    @apply bg-accent-red text-white px-6 py-3 rounded-lg font-semibold 
+           hover:bg-red-600 transition-all duration-200 
+           active:scale-95;
+  }
+  
+  /* Input Fields */
+  .input-field {
+    @apply bg-bg-tertiary border border-gray-700 rounded-lg px-4 py-3 
+           text-text-primary placeholder-text-muted 
+           focus:outline-none focus:border-accent-mint focus:ring-1 focus:ring-accent-mint 
+           transition-all duration-200 w-full;
+  }
+  
+  .input-error {
+    @apply border-accent-red focus:border-accent-red focus:ring-accent-red;
+  }
+  
+  /* Label */
+  .label {
+    @apply block text-sm font-medium text-text-secondary mb-2;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1A1F26;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #252B33;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #4ECDC4;
+}
+
+/* Liquid Glass Month Navigator */
+.month-nav-glass {
+  background: rgba(37, 43, 51, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Smooth Scroll Snap */
+.scroll-snap-x {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-snap-x::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-snap-item {
+  scroll-snap-align: center;
+  scroll-snap-stop: always;
+}
+
+/* Loading Animation */
+.loading-spinner {
+  border: 3px solid rgba(168, 230, 207, 0.1);
+  border-top-color: #A8E6CF;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Chart Tooltips */
+.recharts-tooltip-wrapper {
+  outline: none;
+}
+
+.recharts-default-tooltip {
+  @apply bg-bg-secondary border border-gray-700 rounded-lg shadow-xl !important;
+}
