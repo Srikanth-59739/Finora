@@ -59,7 +59,7 @@ const Login = () => {
     try {
       await login(formData);
       toast.success('Welcome back!');
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     } catch (error) {
       toast.error(error || 'Login failed');
     } finally {

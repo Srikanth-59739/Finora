@@ -7,6 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import { ExpenseProvider } from './context/ExpenseContext';
 
 // Pages
+import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
@@ -61,31 +62,37 @@ function App() {
           />
           
           <Routes>
-            {/* Public Routes */}
+            {/* Landing Page (Public) */}
+            <Route path="/" element={<LandingPage />} />
+            
+            {/* Authentication Routes (Public) */}
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             
-            {/* Protected Routes */}
+            {/* Protected App Routes */}
             <Route
-              path="/*"
+              path="/app/*"
               element={
                 <ProtectedRoute>
                   <Layout>
                     <Routes>
-                      <Route path="/" element={<Navigate to="/dashboard" replace />} />
-                      <Route path="/dashboard" element={<Dashboard />} />
-                      <Route path="/essentials" element={<Essentials />} />
-                      <Route path="/lifestyle" element={<Lifestyle />} />
-                      <Route path="/luxury" element={<Luxury />} />
-                      <Route path="/all-expenses" element={<AllExpenses />} />
-                      <Route path="/analytics" element={<Analytics />} />
-                      <Route path="/budgets" element={<Budgets />} />
-                      <Route path="/admin" element={<AdminDashboard />} />
+                      <Route index element={<Navigate to="/app/dashboard" replace />} />
+                      <Route path="dashboard" element={<Dashboard />} />
+                      <Route path="essentials" element={<Essentials />} />
+                      <Route path="lifestyle" element={<Lifestyle />} />
+                      <Route path="luxury" element={<Luxury />} />
+                      <Route path="all-expenses" element={<AllExpenses />} />
+                      <Route path="analytics" element={<Analytics />} />
+                      <Route path="budgets" element={<Budgets />} />
+                      <Route path="admin" element={<AdminDashboard />} />
                     </Routes>
                   </Layout>
                 </ProtectedRoute>
               }
             />
+            
+            {/* Catch all - redirect to landing */}
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Router>
       </ExpenseProvider>

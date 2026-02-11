@@ -12,15 +12,14 @@ const Sidebar = () => {
   };
 
   const navItems = [
-    { path: '/dashboard', icon: '📊', label: 'Dashboard' },
-    { path: '/essentials', icon: '🛒', label: 'Essentials' },
-    { path: '/lifestyle', icon: '🍽️', label: 'Lifestyle' },
-    { path: '/luxury', icon: '✈️', label: 'Luxury' },
-    { path: '/all-expenses', icon: '📝', label: 'All Expenses' },
-    { path: '/analytics', icon: '📈', label: 'Analytics' },
-    { path: '/budgets', icon: '💰', label: 'Budgets' },
-  ];
-
+  { path: '/app/dashboard', icon: '📊', label: 'Dashboard' },
+  { path: '/app/essentials', icon: '🛒', label: 'Essentials' },
+  { path: '/app/lifestyle', icon: '🍽️', label: 'Lifestyle' },
+  { path: '/app/luxury', icon: '✈️', label: 'Luxury' },
+  { path: '/app/all-expenses', icon: '📝', label: 'All Expenses' },
+  { path: '/app/analytics', icon: '📈', label: 'Analytics' },
+  { path: '/app/budgets', icon: '💰', label: 'Budgets' },
+];
   return (
     <div className="w-64 bg-bg-secondary h-screen fixed left-0 top-0 border-r border-gray-800 flex flex-col">
       {/* Logo */}

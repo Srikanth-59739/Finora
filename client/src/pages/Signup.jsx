@@ -76,7 +76,7 @@ const Signup = () => {
         password: formData.password
       });
       toast.success('Account created successfully!');
-      navigate('/dashboard');
+      navigate('/app/dashboard');
     } catch (error) {
       toast.error(error || 'Signup failed');
     } finally {
