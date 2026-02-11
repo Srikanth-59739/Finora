@@ -136,8 +136,7 @@ const Login = () => {
 
         {/* Admin Link */}
         <div className="mt-4 text-center">
-          <Link 
-            to="/admin" 
+          <Link to="/admin-login"
             className="text-text-muted hover:text-accent-mint text-sm transition-colors"
           >
             Admin Login

@@ -81,19 +81,26 @@ const authService = {
    * @param {object} credentials - { email, password }
    * @returns {Promise}
    */
-  adminLogin: async (credentials) => {
-    try {
-      const response = await api.post('/api/admin/login', credentials);
-      
-      if (response.data.token) {
-        localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.data.token);
-      }
-      
-      return response.data;
-    } catch (error) {
-      throw error;
+  /**
+ * Admin login
+ * @param {object} credentials - { email, password }
+ * @returns {Promise}
+ */
+adminLogin: async (credentials) => {
+  try {
+    const response = await api.post('/api/admin/login', credentials);
+    
+    if (response.data.token) {
+      localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.data.token);
+      // Store a flag to identify admin
+      localStorage.setItem('finora_is_admin', 'true');  // ✅ ADD THIS
     }
+    
+    return response.data;
+  } catch (error) {
+    throw error;
   }
+}
 };
 
 export default authService;

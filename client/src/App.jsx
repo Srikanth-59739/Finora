@@ -18,6 +18,8 @@ import AllExpenses from './pages/AllExpenses';
 import Analytics from './pages/Analytics';
 import Budgets from './pages/Budgets';
 import AdminDashboard from './pages/AdminDashboard';
+import AdminLogin from './pages/AdminLogin';
+
 
 // Layout
 import Layout from './components/layout/Layout';
@@ -62,38 +64,48 @@ function App() {
           />
           
           <Routes>
-            {/* Landing Page (Public) */}
-            <Route path="/" element={<LandingPage />} />
-            
-            {/* Authentication Routes (Public) */}
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            
-            {/* Protected App Routes */}
-            <Route
-              path="/app/*"
-              element={
-                <ProtectedRoute>
-                  <Layout>
-                    <Routes>
-                      <Route index element={<Navigate to="/app/dashboard" replace />} />
-                      <Route path="dashboard" element={<Dashboard />} />
-                      <Route path="essentials" element={<Essentials />} />
-                      <Route path="lifestyle" element={<Lifestyle />} />
-                      <Route path="luxury" element={<Luxury />} />
-                      <Route path="all-expenses" element={<AllExpenses />} />
-                      <Route path="analytics" element={<Analytics />} />
-                      <Route path="budgets" element={<Budgets />} />
-                      <Route path="admin" element={<AdminDashboard />} />
-                    </Routes>
-                  </Layout>
-                </ProtectedRoute>
-              }
-            />
-            
-            {/* Catch all - redirect to landing */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+  {/* Landing Page (Public) */}
+  <Route path="/" element={<LandingPage />} />
+  
+  {/* Authentication Routes (Public) */}
+  <Route path="/login" element={<Login />} />
+  <Route path="/signup" element={<Signup />} />
+  <Route path="/admin-login" element={<AdminLogin />} />  {/* ✅ ADD THIS */}
+  
+  {/* Protected App Routes */}
+  <Route
+    path="/app/*"
+    element={
+      <ProtectedRoute>
+        <Layout>
+          <Routes>
+            <Route index element={<Navigate to="/app/dashboard" replace />} />
+            <Route path="dashboard" element={<Dashboard />} />
+            <Route path="essentials" element={<Essentials />} />
+            <Route path="lifestyle" element={<Lifestyle />} />
+            <Route path="luxury" element={<Luxury />} />
+            <Route path="all-expenses" element={<AllExpenses />} />
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="budgets" element={<Budgets />} />
           </Routes>
+        </Layout>
+      </ProtectedRoute>
+    }
+  />
+  
+  {/* Admin Dashboard (Protected but outside Layout) */}
+  <Route
+    path="/app/admin"
+    element={
+      <ProtectedRoute>
+        <AdminDashboard />
+      </ProtectedRoute>
+    }
+  />
+  
+  {/* Catch all - redirect to landing */}
+  <Route path="*" element={<Navigate to="/" replace />} />
+</Routes>
         </Router>
       </ExpenseProvider>
     </AuthProvider>

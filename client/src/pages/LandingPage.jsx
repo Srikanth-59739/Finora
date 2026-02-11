@@ -528,7 +528,7 @@ const LandingPage = () => {
           </div>
           
           <div className="border-t border-gray-800 pt-8 text-center text-text-muted">
-            <p>© 2026 Finora. All rights reserved. Made with ❤️ for smarter spending.</p>
+            <p>© 2026 Finora. All rights reserved. Made by Gokulakrishnan Jawahar</p>
           </div>
         </div>
       </footer>
