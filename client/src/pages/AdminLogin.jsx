@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import Button from '../components/common/Button';
 import Input from '../components/common/Input';
 import toast from 'react-hot-toast';
-import authService from '../services/authService';
+import api from '../services/api';
+import { STORAGE_KEYS } from '../utils/constants';
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -20,14 +21,35 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!formData.email || !formData.password) {
+      toast.error('Please enter email and password');
+      return;
+    }
+
     setLoading(true);
 
     try {
-      await authService.adminLogin(formData);
-      toast.success('Admin login successful');
-      navigate('/app/admin');
+      console.log('Attempting admin login...'); // Debug
+      
+      const response = await api.post('/api/admin/login', {
+        email: formData.email,
+        password: formData.password
+      });
+
+      console.log('Admin login response:', response.data); // Debug
+
+      if (response.data.token) {
+        localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, response.data.token);
+        localStorage.setItem('finora_is_admin', 'true');
+        toast.success('Admin login successful');
+        navigate('/app/admin');
+      } else {
+        toast.error('No token received');
+      }
     } catch (error) {
-      toast.error(error || 'Admin login failed');
+      console.error('Admin login error:', error); // Debug
+      toast.error(error.response?.data?.error || error.message || 'Admin login failed');
     } finally {
       setLoading(false);
     }
@@ -47,35 +69,41 @@ const AdminLogin = () => {
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            <Input
-              label="Admin Email"
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="admin@finora.com"
-              required
-            />
+  <div>
+    <label className="label">Admin Email</label>
+    <input
+      type="email"
+      name="email"
+      value={formData.email}
+      onChange={handleChange}
+      placeholder="admin@finora.com"
+      className="input-field"
+      required
+    />
+  </div>
 
-            <Input
-              label="Admin Password"
-              type="password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              placeholder="••••••••"
-              required
-            />
+  <div>
+    <label className="label">Admin Password</label>
+    <input
+      type="password"
+      name="password"
+      value={formData.password}
+      onChange={handleChange}
+      placeholder="••••••••"
+      className="input-field"
+      required
+    />
+  </div>
 
-            <Button
-              type="submit"
-              variant="primary"
-              fullWidth
-              loading={loading}
-            >
-              Login as Admin
-            </Button>
-          </form>
+  <Button
+    type="submit"
+    variant="primary"
+    fullWidth
+    loading={loading}
+  >
+    Login as Admin
+  </Button>
+</form>
 
           <div className="mt-6 text-center">
             <Link to="/login" className="text-text-muted hover:text-accent-mint text-sm transition-colors">
@@ -85,7 +113,9 @@ const AdminLogin = () => {
         </div>
 
         <div className="mt-4 text-center text-xs text-text-muted">
-          {/* <p>Default: admin@finora.com / admin123</p> */}
+          {/* <p>Default credentials:</p>
+          <p>Email: admin@finora.com</p>
+          <p>Password: admin123</p> */}
         </div>
       </div>
     </div>
